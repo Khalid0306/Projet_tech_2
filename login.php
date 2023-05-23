@@ -1,27 +1,31 @@
 <?php
 
-    require_once('function.php');
+require_once('function.php');
 
-    if (isset($_POST["send"])) {
-        $bdd = connect();
-        $sql = "SELECT * FROM users WHERE `email` = :email;";
-        
-        $sth = $bdd->prepare($sql);
-        
-        $sth->execute([
-            'email'     => $_POST['email']
-        ]);
+$bdd = connect();
 
-        $user = $sth->fetch();
-        
-        if ($user && password_verify($_POST['password'], $user['password']) ) {
-            // dd($user);
-            $_SESSION['user'] = $user;
-            header('Location: page_d_acceuil.php');
-        } else {
-            $msg = "Incorrect email or password !";
-        }
+if (isset($_POST["send"])) {
+    $sql = "SELECT * FROM users WHERE `email` = :email;";
+    $sth = $bdd->prepare($sql);
+    {
+        die("Error during prepare: " . $bdd->errorInfo()[2]);
     }
+    $sth->execute([
+        'email' => $_POST['email']
+    ]);if (!$success) {
+        die("Error during execute: " . $sth->errorInfo()[2]);
+    }
+
+    $user = $sth->fetch();
+
+    if ($user && password_verify($_POST['password'], $user['password'])) {
+        $_SESSION['user'] = $user;
+        header('Location: page_d_acceuil.php');
+        exit();
+    } else {
+        $msg = "Incorrect email or password!";
+    }
+}
 ?>
 <?php require_once('_header.php'); ?>
 <div class="container">
@@ -54,6 +58,7 @@
     </form>
 </body>
 </html>
+
 
 </div>
 

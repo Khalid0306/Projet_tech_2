@@ -1,5 +1,5 @@
 <!--FONT AWESOME-->
-<link rel="stylesheet" href="Style/main.css">
+<link rel="stylesheet" href="Style/">
 
 <!--GOOGLE FONTS-->
 <link rel="preconnect" href="https://fonts.gstatic.com">

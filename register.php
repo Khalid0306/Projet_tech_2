@@ -1,22 +1,33 @@
 <?php
 
-    require_once('function.php');
 
-    if (isset($_POST["send"])) {
-        $bdd = connect();
-        var_dump($var);
-        
+require_once('function.php');
 
-        $sql = "INSERT INTO users (`email`, `password`) VALUES (:email, :password);";
-        $sth = $bdd->prepare($sql);
-        $sth->execute([
-            'email'     => $_POST['email'],
-            'password'  => password_hash($_POST['password'], PASSWORD_DEFAULT)
-        ]);
+if (isset($_POST["send"])) {
+    $bdd = connect();
+    
 
-        header('Location: login.php');
+    $sql = "INSERT INTO users (`email`, `password`) VALUES (:email, :password);";
+    ;
+    $sth = $bdd->prepare($sql);
+    if (!$sth) {
+        die("Error during prepare: " . $bdd->errorInfo()[2]);
     }
+
+
+    $success = $sth->execute([
+        'email'     => $_POST['email'],
+        'password'  => password_hash($_POST['password'], PASSWORD_DEFAULT)
+    ]);if (!$success) {
+        die("Error during execute: " . $sth->errorInfo()[2]);
+    }
+
+    header('Location: login.php');
+    
+}
+
 ?>
+
 <?php require_once('_header.php'); ?>
 <div class="container">
 <form action="" method="post">
