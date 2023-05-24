@@ -29,7 +29,7 @@ if (isset($_POST["send"])) {
 ?>
 
 <?php require_once('_header.php'); ?>
-<div class="container">
+<div class="container1">
 <form action="" method="post">
         <h1>Create your account</h1>
         <div>

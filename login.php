@@ -7,14 +7,9 @@ $bdd = connect();
 if (isset($_POST["send"])) {
     $sql = "SELECT * FROM users WHERE `email` = :email;";
     $sth = $bdd->prepare($sql);
-    {
-        die("Error during prepare: " . $bdd->errorInfo()[2]);
-    }
     $sth->execute([
         'email' => $_POST['email']
-    ]);if (!$success) {
-        die("Error during execute: " . $sth->errorInfo()[2]);
-    }
+    ]);
 
     $user = $sth->fetch();
 
@@ -28,7 +23,7 @@ if (isset($_POST["send"])) {
 }
 ?>
 <?php require_once('_header.php'); ?>
-<div class="container">
+<div class="container1">
 <form action="" method="post">
         <h1>Welcome back !</h1>
 
