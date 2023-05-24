@@ -38,11 +38,10 @@ require_once('function.php');
                         <li><a href="login.php">Log in</a></li>
                     <?php } else { ?>
                         <li><a href="page_d_acceuil.php">Home</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Asccount</a></li>
+                        <li><a href="#">S</a></li>
+                        <li><a href="#">Exposition</a></li>
+                        <li><a href="#">Account</a></li>
                         <li><a href="logout.php">Logout</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
                     <?php } ?>
                 </ul>
             </div>
