@@ -1,31 +1,47 @@
 <?php
 
-require_once('function.php');
+    require_once('functions.php');
 
-$bdd = connect();
+    if (isset($_POST["send"])) {
+        $bdd = connect();
+        $sql = "SELECT * FROM users WHERE `email` = :email;";
+        
+        $sth = $bdd->prepare($sql);
 
-if (isset($_POST["send"])) {
-    $sql = "SELECT * FROM users WHERE `email` = :email;";
-    $sth = $bdd->prepare($sql);
-    $sth->execute([
-        'email' => $_POST['email']
-    ]);
 
-    $user = $sth->fetch();
+        if (!$sth) {
+            die("Error during prepare: " . $bdd->errorInfo()[2]);
+        }
 
-    if ($user && password_verify($_POST['password'], $user['password'])) {
-        $_SESSION['user'] = $user;
-        header('Location: page_d_acceuil.php');
-        exit();
-    } else {
-        $msg = "Incorrect email or password!";
+        
+        $sth->execute([
+            'email'     => $_POST['email']
+        ]);
+
+        $user = $sth->fetch();
+        
+        if ($user && password_verify($_POST['password'], $user['password']) ) {
+             //dd($user);
+            //$_SESSION['user'] = $user;
+            header('Location: admin.php');
+        } else {
+            $msg = "Email ou mot de passe incorrect !";
+        }
     }
-}
 ?>
-<?php require_once('_header.php'); ?>
-<div class="container1">
-<form action="" method="post">
-        <h1>Welcome back !</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <?php require_once('_nave.php'); ?>
+    <form action="" method="post">
+        <h1>Connexion</h1>
 
         <?php if (isset($msg)) { echo "<div>" . $msg . "</div>"; } ?>
 
@@ -33,27 +49,23 @@ if (isset($_POST["send"])) {
             <label for="email">Email</label>
             <input 
                 type="email" 
-                placeholder="Enter your email" 
+                placeholder="Entrez votre email" 
                 name="email" 
                 id="email" 
             />
         </div>
         <div>
-            <label for="password">Password</label>
+            <label for="password">Mot de passe</label>
             <input 
                 type="password" 
-                placeholder="Enter your password" 
+                placeholder="Entrez votre mot de passe" 
                 name="password" 
                 id="password" 
             />
         </div>
         <div>
-            <input type="submit" class="btn btn-green" name="send" value="Log in" />
+            <input type="submit" name="send" value="Connexion" />
         </div>
     </form>
 </body>
 </html>
-
-
-</div>
-
