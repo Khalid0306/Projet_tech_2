@@ -4,16 +4,16 @@ require_once('function.php');
 $bdd = connect();
 
 if (isset($_POST["send"])) {
-    $sql = "SELECT * FROM users WHERE `email` = :email;";
+    $sql = "SELECT * FROM admin WHERE `email` = :email;";
     $sth = $bdd->prepare($sql);
     $sth->execute([
         'email' => $_POST['email']
     ]);
 
-    $user = $sth->fetch();
+    $admin = $sth->fetch();
 
-    if ($user && password_verify($_POST['password'], $user['password'])) {
-        $_SESSION['user'] = $user;
+    if ($admin && password_verify($_POST['password'], $admin['password'])) {
+        $_SESSION['user'] = $admin;
         header('Location: page_d_acceuil.php');
         exit();
     } else {
@@ -51,9 +51,7 @@ if (isset($_POST["send"])) {
             <input type="submit" class="btn btn-green" name="send" value="Log in" />
         </div>
         <div class="signup_link">
-            Not a member ?<a href="register.php">Sign in</a>
-            <br>
-            Are you an admin ?<a href="login.php">log in</a>
+            Are you a client ?<a href="login.php">log in</a>
         </div>
     </form>
 </div>
