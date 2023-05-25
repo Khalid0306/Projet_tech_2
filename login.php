@@ -1,6 +1,6 @@
 <?php
 
-    require_once('functions.php');
+require_once('functions.php');
 
     if (isset($_POST["send"])) {
         $bdd = connect();
@@ -22,50 +22,54 @@
         
         if ($user && password_verify($_POST['password'], $user['password']) ) {
              //dd($user);
-            //$_SESSION['user'] = $user;
-            header('Location: admin.php');
+            $_SESSION['user'] = $user;
+            header('Location: register.php');
         } else {
             $msg = "Email ou mot de passe incorrect !";
         }
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
-</head>
-<body>
-    <?php require_once('_nave.php'); ?>
-    <form action="" method="post">
-        <h1>Connexion</h1>
+<?php require_once('_header.php'); ?>
+<div class="container1">
+<form action="" method="post">
+        <h1>Welcome back !</h1>
 
         <?php if (isset($msg)) { echo "<div>" . $msg . "</div>"; } ?>
 
-        <div>
+        <div class="txt_field">
+            <input type="email"  name="email" id="email" required />
             <label for="email">Email</label>
             <input 
                 type="email" 
-                placeholder="Entrez votre email" 
+                placeholder="Enter your email" 
                 name="email" 
                 id="email" 
             />
         </div>
         <div>
-            <label for="password">Mot de passe</label>
+            <label for="password">Password</label>
             <input 
                 type="password" 
-                placeholder="Entrez votre mot de passe" 
+                placeholder="Enter your password" 
                 name="password" 
                 id="password" 
             />
         </div>
+        <div class="pass"><a class="pass" href="#"> Forgot Password ?</a></div>
         <div>
             <input type="submit" name="send" value="Connexion" />
         </div>
+        <div class="signup_link">
+            Not a member ?<a href="register.php">Sign in</a>
+            <br>
+            Are you an admin ?<a href="login.php">log in</a>
+        </div>
     </form>
+</div>
+
 </body>
 </html>
+
+
+</div>
+

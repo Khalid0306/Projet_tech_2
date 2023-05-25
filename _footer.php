@@ -21,12 +21,16 @@
 <li><a href="#">Our Services</a></li>
 <li><a href="#">Privacy Policy</a></li>
 <li><a href="#">Terms & Conditions</a></li>
-<li><a href="#">Career</a></li>
+<li><a href="#">About Us</a></li>
 </ul>
 </div>
 
 <div class="row">
-INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh 
+    khalid.oumarougarba@edu.ece.com 
+    /jasonstephe.mampouya@gmail.com
+     /ntchophanueleliel.kone@edu.ece.fr
+     /gemima.ondelepourou@edu.ece.fr
+    INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh 
 </div>
 </div>
 </footer>

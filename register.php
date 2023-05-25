@@ -31,29 +31,41 @@ if (isset($_POST["send"])) {
 ?>
 
 <?php require_once('_header.php'); ?>
-<div class="container1">
+<link rel="stylesheet" href="Style/login.css">
+<style>
+    body {
+        background-image: url(img/woman-1283009_1920.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+<div class="center">
 <form action="" method="post">
         <h1>Create your account</h1>
-        <div>
-            <label for="email">Email : </label>
+        
+        <div class="txt_field">
             <input 
-                type="email" 
-                placeholder="Enter your email" 
+                type="email"  
                 name="email" 
-                id="email" 
+                id="email"
+                required  
             />
+            <label for="email">Email</label>
         </div>
-        <div>
-            <label for="password">Password : </label>
+        <div class="txt_field">
             <input 
                 type="password" 
-                placeholder="Enter your password" 
                 name="password" 
-                id="password" 
+                id="password"
+                required  
             />
+            <label for="password">Password</label>
         </div>
-        <div class="mt-4">
+        <div>
             <input type="submit" name="send" value="Create" class="btn btn-green" />
+        </div>
+        <div class="signup_link">
+            Already a member ?<a href="login.php">log in</a>
         </div>
     </form>
 </div>
