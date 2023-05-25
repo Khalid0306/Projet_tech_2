@@ -6,7 +6,7 @@ require_once('functions.php');
 session_start();
 if (!isset($_SESSION['admin'])) {
     // Rediriger l'administrateur vers la page de connexion
-    header('Location: admin_login.php');
+    header('Location: login_admin.php');
     exit;
 }
 

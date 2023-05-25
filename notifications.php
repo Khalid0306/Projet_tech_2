@@ -2,11 +2,13 @@
 
 require_once('functions.php');
 
+
+
 // Vérifier si l'administrateur est connecté
 session_start();
 if (!isset($_SESSION['admin'])) {
     // Rediriger l'administrateur vers la page de connexion
-    header('Location: admin_login.php');
+    header('Location: login_admin.php');
     exit;
 }
 
@@ -39,18 +41,10 @@ if (isset($_GET['validate'])) {
 <?php require_once('_header.php'); ?>
 <div class="container1">
     <h1>Notifications</h1>
-    <?php if (count($users) > 0): ?>
-        <ul>
-            <?php foreach ($users as $user): ?>
-                <li>
+    
                     Email: <?php echo $user['email']; ?>
-                    <a href="notifications.php?validate=<?php echo $user['id']; ?>">Valider</a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <p>No new notifications.</p>
-    <?php endif; ?>
+                  
+         
 </div>
 </body>
 </html>

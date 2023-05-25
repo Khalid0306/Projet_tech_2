@@ -1,5 +1,5 @@
 <?php
-require_once('function.php');
+require_once('functions.php');
 
 $bdd = connect();
 
@@ -13,8 +13,8 @@ if (isset($_POST["send"])) {
     $admin = $sth->fetch();
 
     if ($admin && password_verify($_POST['password'], $admin['password'])) {
-        $_SESSION['user'] = $admin;
-        header('Location: page_d_acceuil.php');
+        $_SESSION['admin'] = $admin;
+        header('Location:admin.php');
         exit();
     } else {
         $msg = "Incorrect email or password!";
