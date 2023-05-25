@@ -34,11 +34,13 @@ require_once('function.php');
                 <ul class="nav-links">
                     <?php if (!isset($_SESSION['user'])) { ?>
                         <li><a href="page_d_acceuil.php">Home</a></li>
+                        <li><a href="Exposition.php">Exposition</a></li>
+                        <li><a href="#">Shop</a></li>
                         <li><a href="register.php">Sign in</a></li>
                         <li><a href="login.php">Log in</a></li>
                     <?php } else { ?>
                         <li><a href="page_d_acceuil.php">Home</a></li>
-                        <li><a href="#">S</a></li>
+                        <li><a href="#">Shop</a></li>
                         <li><a href="#">Exposition</a></li>
                         <li><a href="#">Account</a></li>
                         <li><a href="logout.php">Logout</a></li>

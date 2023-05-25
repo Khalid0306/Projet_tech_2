@@ -3,6 +3,9 @@ require_once ('function.php');
 require_once ('_header.php');
 ?>
 
-<footer><?php 
+
+<?php 
 require_once ('_footer.php');
-?></footer>
+?>
+
+

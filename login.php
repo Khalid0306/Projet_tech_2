@@ -23,7 +23,7 @@ if (isset($_POST["send"])) {
 ?>
 <style>
     body {
-        background-image: url(img/csm_img_bandeau_musee_ec5567aba3.jpg);
+        background-image: url(img/);
         background-size: cover;
         background-position: center;
     }
