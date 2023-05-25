@@ -29,6 +29,13 @@ require_once('functions.php');
         }
     }
 ?>
+<style>
+    body {
+        background-image: url(img/csm_img_bandeau_musee_ec5567aba3.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+</style>
 <?php require_once('_header.php'); ?>
 <div class="container1">
 <form action="" method="post">
