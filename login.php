@@ -20,10 +20,20 @@ require_once('functions.php');
 
         $user = $sth->fetch();
         
-        if ($user && password_verify($_POST['password'], $user['password']) ) {
+        if ($user && password_verify($_POST['password'], $user['password'])  ) {
              //dd($user);
+
+
+             if(   $_SESSION['user']['validated']==0 ){
             $_SESSION['user'] = $user;
-            header('Location: register.php');
+            header('Location: login.php');
+
+             }else{
+
+                header('Location: register.php');
+
+             }
+
         } else {
             $msg = "Email ou mot de passe incorrect !";
         }
