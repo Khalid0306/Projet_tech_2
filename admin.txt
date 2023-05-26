@@ -1,0 +1,42 @@
+
+
+
+
+
+//verifier si l'admin est connecté 
+
+
+
+
+
+
+// si oui il accede a sa page {
+
+
+//dans sa page  il ya  acces au site 
+
+
+//dans sa page  il ya  une bare de notif
+
+quand il clique il appersoit le "mon_compte" de tous les persos ayant lancé une requette demande de connection avec accepter et refuser
+
+si il  
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
