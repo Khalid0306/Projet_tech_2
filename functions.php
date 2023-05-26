@@ -13,12 +13,9 @@
     function connect () {
         $link = new PDO(
             
-            'mysql:dbname=projet_tech_musee;host=localhost:3307', 
+            'mysql:dbname=projet_tech_musee;host=localhost', 
             'root', 
             ''
-
-
-
 
         );
 

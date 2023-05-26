@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 23 mai 2023 à 20:27
+-- Généré le : ven. 26 mai 2023 à 08:24
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -43,6 +43,83 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `oeuvre`
+--
+
+DROP TABLE IF EXISTS `oeuvre`;
+CREATE TABLE IF NOT EXISTS `oeuvre` (
+  `id_oeuvre` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_oeuvre` varchar(30) NOT NULL,
+  `nom_artiste` varchar(30) NOT NULL,
+  `description_oeuvre` varchar(300) NOT NULL,
+  `picture` varchar(300) CHARACTER SET utf8mb4 NOT NULL,
+  `catégorie` varchar(250) NOT NULL,
+  `likes` int(255) DEFAULT NULL,
+  PRIMARY KEY (`id_oeuvre`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `oeuvre`
+--
+
+INSERT INTO `oeuvre` (`id_oeuvre`, `nom_oeuvre`, `nom_artiste`, `description_oeuvre`, `picture`, `catégorie`, `likes`) VALUES
+(1, 'La Joconde', 'Leonardo da Vinci', 'Portrait énigmatique d\'une femme au sourire mystérieux.', 'La joconde.jpg', 'peinture', NULL),
+(2, 'Les Nymphéas', 'Claude Monet', 'Série de peintures représentant des nymphéas dans un étang.', 'Les_nymphéas.webp', 'peinture', NULL),
+(3, 'La Nuit étoilée', ' Vincent van Gogh', 'Paysage nocturne avec un ciel étoilé tourbillonnant.', 'La Nuit étoilée.jpg', 'peinture', NULL),
+(19, 'Guernica', 'Pablo Picasso', 'Peinture représentant les horreurs de la guerre civile espagnole.', 'Guernica.jpg', 'peinture', NULL),
+(20, 'La Persistance de la mémoire', 'Salvador Dalí', 'Montres molles suspendues dans un paysage surréaliste.', 'La Persistance de la mémoire.jpg', 'peinture', NULL),
+(21, 'Les Tournesols', 'Vincent van Gogh', 'Bouquet de tournesols dans un vase.', 'Les Tournesols.jpg', 'peinture', NULL),
+(22, 'La Cène', 'Leonardo da Vinci', 'Dernier repas du Christ avec ses disciples.', 'La Cène.jpg', 'peinture', NULL),
+(23, 'Les Demoiselles d\'Avignon', 'Pablo Picasso', 'Scène figurative représentant des prostituées dans un bordel.', 'Les Demoiselles d\'Avignon.png', 'peinture', NULL),
+(24, 'La Guerre et la Paix', 'Pablo Picasso', 'Peinture murale représentant les ravages de la guerre.', 'La Guerre et la Paix.jpg', 'peinture', NULL),
+(25, 'Les Ménines', 'Diego Velázquez', 'Portrait de la famille royale espagnole.', 'Les Ménines.jpg', 'peinture', NULL),
+(26, 'David de Michel-Ange', 'Michel-Ange', 'Sculpture représentant le personnage biblique de David.', 'David de Michel-Ange.jpg', 'sculpture', NULL),
+(27, 'La Pieta', ' Michel-Ange', 'Sculpture représentant la Vierge Marie tenant le corps du Christ.', 'La Pieta.jpg', 'sculpture', NULL),
+(28, 'Le Penseur', 'Auguste Rodin', 'Sculpture d\'un homme nu en position de réflexion.', 'Le Penseur.jpg', 'sculpture', NULL),
+(29, 'La Victoire de Samothrace', 'Inconnu ', 'Sculpture d\'une déesse ailée de la victoire.', 'La Victoire de Samothrace.jpg', 'sculpture', NULL),
+(30, 'L\'Esclave mourant', 'Michel-Ange', 'Sculpture représentant un homme en train de mourir, emprisonné dans la pierre.', 'L\'Esclave mourant.jpg', 'sculpture', NULL),
+(31, 'La Vénus de Milo', 'Inconnu', 'Sculpture d\'Aphrodite, déesse de l\'amour et de la beauté.', 'La Vénus de Milo.jpg', 'sculpture', NULL),
+(32, 'L\'Homme qui marche', 'Alberto Giacometti', 'Sculpture représentant une figure humaine allongée et étirée.', 'L\'Homme qui marche.jpg', 'sculpture', NULL),
+(33, 'La Porte de l\'Enfer', 'Auguste Rodin', 'Sculpture monumentale représentant une scène de l\'Enfer de Dante.', 'La Porte de l\'Enfer.jpg', 'sculpture', NULL),
+(34, 'Les Trois Grâces', ' Jean-Baptiste Carpeaux', ' Sculpture représentant les trois déesses de la mythologie grecque.', 'Les_Trois_Grâces.jpg', 'sculpture', NULL),
+(35, 'Le Discobole', 'Myron', 'Sculpture représentant un athlète en train de lancer le disque.', 'Le Discobole.JPG', 'sculpture', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `produit`
+--
+
+DROP TABLE IF EXISTS `produit`;
+CREATE TABLE IF NOT EXISTS `produit` (
+  `id_produit` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_produit` varchar(100) NOT NULL,
+  `description_produit` varchar(300) NOT NULL,
+  `picture` varchar(300) CHARACTER SET utf8mb4 NOT NULL,
+  `catégorie` varchar(250) NOT NULL,
+  `quantité` int(255) DEFAULT NULL,
+  PRIMARY KEY (`id_produit`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `produit`
+--
+
+INSERT INTO `produit` (`id_produit`, `nom_produit`, `description_produit`, `picture`, `catégorie`, `quantité`) VALUES
+(61, 'Réplique de La Joconde', 'Réplique fidèle de la célèbre peinture de Leonardo da Vinci, La Joconde.', 'Replique la joconde.jpg', 'Reproduction d\'œuvre d\'art', NULL),
+(62, 'Buste de David', 'Sculpture en plâtre représentant le buste de David de Michel-Ange.', 'Buste de david.jpg', 'Sculpture en plâtre', NULL),
+(63, 'Impression sur toile des Nymphéas', 'Impression sur toile des célèbres Nymphéas de Claude Monet.', 'Impression sur toile des Nymphéas.jpg', 'Impression artistique', NULL),
+(64, 'Miniature de la Tour Eiffel en métal', 'Miniature détaillée de la Tour Eiffel en métal.', 'Miniature de la Tour Eiffel en métal.webp', 'Souvenir', NULL),
+(65, 'Poster de La Nuit étoilée', 'Poster de grande qualité représentant la célèbre peinture de Vincent van Gogh, La Nuit étoilée.', 'Poster de la nuit étoilée.jpg', 'Posters et reproductions', NULL),
+(66, 'Réplique de la Statue de la Liberté', 'Réplique en résine de la Statue de la Liberté.', 'Réplique de la Statue de la Liberté.jpg', 'Reproduction d\'œuvre d\'art', NULL),
+(67, 'Porte-clés Les Tournesols', 'Porte-clés avec un médaillon représentant Les Tournesols de Vincent van Gogh.', 'Porte-clés Les Tournesols.webp', 'Accessoires', NULL),
+(68, 'T-shirt La Cène', 'T-shirt noir avec une impression de La Cène de Leonardo da Vinci.', 'T-shirt la Céne.jpg', 'Vêtements', NULL),
+(69, 'Mug Les Demoiselles d\'Avignon', 'Mug en céramique avec une reproduction des Demoiselles d\'Avignon de Pablo Picasso.', 'Mug les demoiselles d\'Avignon.jpg', 'Cadeaux', NULL),
+(70, 'Livre d\'art sur les sculptures grecques', 'Livre richement illustré présentant les sculptures grecques les plus célèbres.', 'Livre d\'art sur les sculptures grecques.jpg', 'Livres d\'art', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -54,11 +131,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nom` varchar(30) DEFAULT NULL,
-  `prénom` varchar(30) DEFAULT NULL,
+  `prenom` varchar(30) DEFAULT NULL,
+  `adresse` varchar(100) DEFAULT NULL,
+  `validation` int(11) NOT NULL DEFAULT '0',
+  `avatar` varchar(100) DEFAULT NULL,
+  `N_commande` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
