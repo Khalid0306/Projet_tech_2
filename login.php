@@ -39,6 +39,9 @@ require_once('functions.php');
         }
     }
 ?>
+
+<?php require_once('_header.php'); ?>
+<link rel="stylesheet" href="Style/login.css">
 <style>
     body {
         background-image: url(img/csm_img_bandeau_musee_ec5567aba3.jpg);
@@ -46,8 +49,7 @@ require_once('functions.php');
         background-position: center;
     }
 </style>
-<?php require_once('_header.php'); ?>
-<div class="container1">
+<div class="center">
 <form action="" method="post">
         <h1>Welcome back !</h1>
 
@@ -56,21 +58,10 @@ require_once('functions.php');
         <div class="txt_field">
             <input type="email"  name="email" id="email" required />
             <label for="email">Email</label>
-            <input 
-                type="email" 
-                placeholder="Enter your email" 
-                name="email" 
-                id="email" 
-            />
         </div>
-        <div>
+        <div class="txt_field">
+            <input type="password" name="password" id="password" required/>
             <label for="password">Password</label>
-            <input 
-                type="password" 
-                placeholder="Enter your password" 
-                name="password" 
-                id="password" 
-            />
         </div>
         <div class="pass"><a class="pass" href="#"> Forgot Password ?</a></div>
         <div>

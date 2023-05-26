@@ -4,13 +4,14 @@ require_once('_header.php');
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <style>
         .container1 {
             margin-bottom: 100px;
         }
-        
+
         .artwork {
             display: flex;
             flex-wrap: wrap;
@@ -63,7 +64,8 @@ require_once('_header.php');
         }
 
         .artwork-item:hover .artwork-details {
-            display: block; /* Afficher les détails lorsque la souris survole l'élément */
+            display: block;
+            /* Afficher les détails lorsque la souris survole l'élément */
         }
 
         .filter-buttons {
@@ -85,37 +87,37 @@ require_once('_header.php');
         }
     </style>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        const artworkItems = document.querySelectorAll('.artwork-item');
+        document.addEventListener('DOMContentLoaded', function() {
 
-        
-        artworkItems.forEach(function(item) {
-            
-            const artworkImage = item.querySelector('.artwork-image');
-            
-            const artworkDetails = item.querySelector('.artwork-description');
+            const artworkItems = document.querySelectorAll('.artwork-item');
 
-            artworkImage.addEventListener('mouseover', function() {
-                artworkImage.style.border = '2px solid red';
-                artworkImage.style.transform = 'scale(1.4)';
-                
-                artworkDetails.style.display = 'block';
-            });
 
-            
-            artworkImage.addEventListener('mouseout', function() {
-                
-                artworkImage.style.border = '1px solid #ccc';
-                artworkImage.style.transform = 'scale(1)';
-                
-                artworkDetails.style.display = 'none';
+            artworkItems.forEach(function(item) {
+
+                const artworkImage = item.querySelector('.artwork-image');
+
+                const artworkDetails = item.querySelector('.artwork-description');
+
+                artworkImage.addEventListener('mouseover', function() {
+                    artworkImage.style.border = '2px solid red';
+                    artworkImage.style.transform = 'scale(1.4)';
+
+                    artworkDetails.style.display = 'block';
+                });
+
+
+                artworkImage.addEventListener('mouseout', function() {
+
+                    artworkImage.style.border = '1px solid #ccc';
+                    artworkImage.style.transform = 'scale(1)';
+
+                    artworkDetails.style.display = 'none';
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const artworkItems = document.querySelectorAll('.artwork-item');
             const filterButtons = document.querySelectorAll('.filter-buttons button');
@@ -133,7 +135,7 @@ require_once('_header.php');
                     const selectedCategory = button.getAttribute('data-category');
 
                     artworkItems.forEach(function(item) {
-                        const artworkCategory = item.getAttribute('data-category');
+                        const artworkCategory = item.querySelector('.artwork-category').textContent;
 
                         if (selectedCategory === 'all' || selectedCategory === artworkCategory) {
                             item.style.display = 'block';
@@ -146,6 +148,7 @@ require_once('_header.php');
         });
     </script>
 </head>
+
 <body>
     <?php
     $bdd = connect();
@@ -156,8 +159,11 @@ require_once('_header.php');
     ?>
 
     <div class="container1">
-        <center><b>  <h1>Exposition d'œuvres d'art</h1></b></center>
+        <center><b>
+                <h1>Exposition d'œuvres d'art</h1>
+            </b></center>
         <div class="filter-buttons">
+            <h4>filtre :</h4>
             <button class="active" data-category="all">Toutes</button>
             <button data-category="peinture">peinture</button>
             <button data-category="sculpture">sculpture</button>
@@ -176,6 +182,7 @@ require_once('_header.php');
             <?php endforeach; ?>
         </div>
     </div>
-    <footer><?php require_once ('_footer.php'); ?></footer>
+    <footer><?php require_once('_footer.php'); ?></footer>
 </body>
+
 </html>
