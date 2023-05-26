@@ -6,10 +6,10 @@ $password = "votre_mot_de_passe";
 $dbname = "projet_tech_musee.sql";
 
 // Connexion à la base de données
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Échec de la connexion à la base de données : " . $conn->connect_error);
-}
+//$conn = new mysqli($servername, $username, $password, $dbname);
+//if ($conn->connect_error) {
+ //   die("Échec de la connexion à la base de données : " . $conn->connect_error);
+//}
 
 
 $errors = array();
