@@ -4,6 +4,7 @@ require_once('functions.php');
 if (isset($_POST['user_id'])) {
     $user_id = $_POST['user_id'];
 
+
     if (isset($_POST['accept'])) {
         // Mettre à jour le champ 'validated' de l'utilisateur à 1 (accepté)
         $bdd = connect();
@@ -11,7 +12,8 @@ if (isset($_POST['user_id'])) {
         $sth = $bdd->prepare($sql);
         $sth->bindValue(':user_id', $user_id);
         $sth->execute();
-    } elseif (isset($_POST['reject'])) {
+    }
+elseif (isset($_POST['reject'])) {
         // Supprimer l'utilisateur de la base de données
         $bdd = connect();
         $sql = "DELETE FROM users WHERE id = :user_id";
