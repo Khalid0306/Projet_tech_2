@@ -2,42 +2,39 @@
 
 require_once('functions.php');
 
-    if (isset($_POST["send"])) {
-        $bdd = connect();
-        $sql = "SELECT * FROM users WHERE `email` = :email;";
-        
-        $sth = $bdd->prepare($sql);
+if (isset($_POST["send"])) {
+    $bdd = connect();
+    $sql = "SELECT * FROM users WHERE `email` = :email;";
+
+    $sth = $bdd->prepare($sql);
 
 
-        if (!$sth) {
-            die("Error during prepare: " . $bdd->errorInfo()[2]);
-        }
-
-        
-        $sth->execute([
-            'email'     => $_POST['email']
-        ]);
-
-        $user = $sth->fetch();
-        
-        if ($user && password_verify($_POST['password'], $user['password'])  ) {
-             //dd($user);
+    if (!$sth) {
+        die("Error during prepare: " . $bdd->errorInfo()[2]);
+    }
 
 
-             if(   $_SESSION['user']['validated']==0 ){
+    $sth->execute([
+        'email'     => $_POST['email']
+    ]);
+
+    $user = $sth->fetch();
+
+    if ($user && password_verify($_POST['password'], $user['password'])) {
+        //dd($user);
+
+
+        if ($_SESSION['user']['validated'] == 0) {
             $_SESSION['user'] = $user;
             header('Location: login.php');
-
-             }else{
-
-                header('Location: register.php');
-
-             }
-
         } else {
-            $msg = "Email ou mot de passe incorrect !";
+
+            header('Location: register.php');
         }
+    } else {
+        $msg = "Email ou mot de passe incorrect !";
     }
+}
 ?>
 
 <?php require_once('_header.php'); ?>
@@ -50,17 +47,19 @@ require_once('functions.php');
     }
 </style>
 <div class="center">
-<form action="" method="post">
+    <form action="" method="post">
         <h1>Welcome back !</h1>
 
-        <?php if (isset($msg)) { echo "<div>" . $msg . "</div>"; } ?>
+        <?php if (isset($msg)) {
+            echo "<div>" . $msg . "</div>";
+        } ?>
 
         <div class="txt_field">
-            <input type="email"  name="email" id="email" required />
+            <input type="email" name="email" id="email" required />
             <label for="email">Email</label>
         </div>
         <div class="txt_field">
-            <input type="password" name="password" id="password" required/>
+            <input type="password" name="password" id="password" required />
             <label for="password">Password</label>
         </div>
         <div class="pass"><a class="pass" href="#"> Forgot Password ?</a></div>
@@ -76,8 +75,8 @@ require_once('functions.php');
 </div>
 
 </body>
+
 </html>
 
 
 </div>
-
