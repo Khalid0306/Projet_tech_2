@@ -3,6 +3,9 @@
 require_once('functions.php');
 require_once ('_header.php');
 
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+}
 
 
 if (isset($_POST["Envoyer"])) {

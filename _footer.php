@@ -22,6 +22,7 @@
 <li><a href="#">Privacy Policy</a></li>
 <li><a href="#">Terms & Conditions</a></li>
 <li><a href="#">About Us</a></li>
+<li><a href="ajouter_note.php">avis</a></li>
 </ul>
 </div>
 
