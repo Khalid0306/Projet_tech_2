@@ -84,7 +84,7 @@ function validateInput($data) {
 }
 
 
-$userId = 1; // ID de l'utilisateur à récupérer (à adapter selon votre système)
+$userId = 1;  // ID de l'utilisateur à récupérer
 $sql = "SELECT * FROM utilisateurs WHERE id=$userId";
 $result = $conn->query($sql);
 
