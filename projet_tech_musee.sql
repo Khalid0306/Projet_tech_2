@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 26 mai 2023 à 08:24
+-- Généré le : sam. 27 mai 2023 à 20:05
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -53,8 +53,9 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
   `nom_artiste` varchar(30) NOT NULL,
   `description_oeuvre` varchar(300) NOT NULL,
   `picture` varchar(300) CHARACTER SET utf8mb4 NOT NULL,
-  `catégorie` varchar(250) NOT NULL,
-  `likes` int(255) DEFAULT NULL,
+  `categorie` varchar(250) NOT NULL,
+  `likes` int(255) DEFAULT '0',
+  `premium_only` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_oeuvre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
@@ -62,27 +63,27 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
 -- Déchargement des données de la table `oeuvre`
 --
 
-INSERT INTO `oeuvre` (`id_oeuvre`, `nom_oeuvre`, `nom_artiste`, `description_oeuvre`, `picture`, `catégorie`, `likes`) VALUES
-(1, 'La Joconde', 'Leonardo da Vinci', 'Portrait énigmatique d\'une femme au sourire mystérieux.', 'La joconde.jpg', 'peinture', NULL),
-(2, 'Les Nymphéas', 'Claude Monet', 'Série de peintures représentant des nymphéas dans un étang.', 'Les_nymphéas.webp', 'peinture', NULL),
-(3, 'La Nuit étoilée', ' Vincent van Gogh', 'Paysage nocturne avec un ciel étoilé tourbillonnant.', 'La Nuit étoilée.jpg', 'peinture', NULL),
-(19, 'Guernica', 'Pablo Picasso', 'Peinture représentant les horreurs de la guerre civile espagnole.', 'Guernica.jpg', 'peinture', NULL),
-(20, 'La Persistance de la mémoire', 'Salvador Dalí', 'Montres molles suspendues dans un paysage surréaliste.', 'La Persistance de la mémoire.jpg', 'peinture', NULL),
-(21, 'Les Tournesols', 'Vincent van Gogh', 'Bouquet de tournesols dans un vase.', 'Les Tournesols.jpg', 'peinture', NULL),
-(22, 'La Cène', 'Leonardo da Vinci', 'Dernier repas du Christ avec ses disciples.', 'La Cène.jpg', 'peinture', NULL),
-(23, 'Les Demoiselles d\'Avignon', 'Pablo Picasso', 'Scène figurative représentant des prostituées dans un bordel.', 'Les Demoiselles d\'Avignon.png', 'peinture', NULL),
-(24, 'La Guerre et la Paix', 'Pablo Picasso', 'Peinture murale représentant les ravages de la guerre.', 'La Guerre et la Paix.jpg', 'peinture', NULL),
-(25, 'Les Ménines', 'Diego Velázquez', 'Portrait de la famille royale espagnole.', 'Les Ménines.jpg', 'peinture', NULL),
-(26, 'David de Michel-Ange', 'Michel-Ange', 'Sculpture représentant le personnage biblique de David.', 'David de Michel-Ange.jpg', 'sculpture', NULL),
-(27, 'La Pieta', ' Michel-Ange', 'Sculpture représentant la Vierge Marie tenant le corps du Christ.', 'La Pieta.jpg', 'sculpture', NULL),
-(28, 'Le Penseur', 'Auguste Rodin', 'Sculpture d\'un homme nu en position de réflexion.', 'Le Penseur.jpg', 'sculpture', NULL),
-(29, 'La Victoire de Samothrace', 'Inconnu ', 'Sculpture d\'une déesse ailée de la victoire.', 'La Victoire de Samothrace.jpg', 'sculpture', NULL),
-(30, 'L\'Esclave mourant', 'Michel-Ange', 'Sculpture représentant un homme en train de mourir, emprisonné dans la pierre.', 'L\'Esclave mourant.jpg', 'sculpture', NULL),
-(31, 'La Vénus de Milo', 'Inconnu', 'Sculpture d\'Aphrodite, déesse de l\'amour et de la beauté.', 'La Vénus de Milo.jpg', 'sculpture', NULL),
-(32, 'L\'Homme qui marche', 'Alberto Giacometti', 'Sculpture représentant une figure humaine allongée et étirée.', 'L\'Homme qui marche.jpg', 'sculpture', NULL),
-(33, 'La Porte de l\'Enfer', 'Auguste Rodin', 'Sculpture monumentale représentant une scène de l\'Enfer de Dante.', 'La Porte de l\'Enfer.jpg', 'sculpture', NULL),
-(34, 'Les Trois Grâces', ' Jean-Baptiste Carpeaux', ' Sculpture représentant les trois déesses de la mythologie grecque.', 'Les_Trois_Grâces.jpg', 'sculpture', NULL),
-(35, 'Le Discobole', 'Myron', 'Sculpture représentant un athlète en train de lancer le disque.', 'Le Discobole.JPG', 'sculpture', NULL);
+INSERT INTO `oeuvre` (`id_oeuvre`, `nom_oeuvre`, `nom_artiste`, `description_oeuvre`, `picture`, `categorie`, `likes`, `premium_only`) VALUES
+(1, 'La Joconde', 'Leonardo da Vinci', 'Portrait enigmatique d\'une femme au sourire mysterieux.', 'La joconde.jpg', 'peinture', 35, 0),
+(2, 'Les Nympheas', 'Claude Monet', 'Serie de peintures representant des nympheas dans un etang.', 'Les_nympheas.webp', 'peinture', 11, 1),
+(3, 'La Nuit etoilee', ' Vincent van Gogh', 'Paysage nocturne avec un ciel etoile tourbillonnant.', 'La Nuit etoilee.jpg', 'peinture', 12, 0),
+(19, 'Guernica', 'Pablo Picasso', 'Peinture representant les horreurs de la guerre civile espagnole.', 'Guernica.jpg', 'peinture', 14, 1),
+(20, 'La Persistance de la memoire', 'Salvador Dali', 'Montres molles suspendues dans un paysage surrealiste.', 'La Persistance de la memoire.jpg', 'peinture', 12, 0),
+(21, 'Les Tournesols', 'Vincent van Gogh', 'Bouquet de tournesols dans un vase.', 'Les Tournesols.jpg', 'peinture', 13, 1),
+(22, 'La Cene', 'Leonardo da Vinci', 'Dernier repas du Christ avec ses disciples.', 'La Cene.jpg', 'peinture', 13, 0),
+(23, 'Les Demoiselles d\'Avignon', 'Pablo Picasso', 'Scene figurative representant des prostituees dans un bordel.', 'Les Demoiselles d\'Avignon.png', 'peinture', 14, 1),
+(24, 'La Guerre et la Paix', 'Pablo Picasso', 'Peinture murale representant les ravages de la guerre.', 'La Guerre et la Paix.jpg', 'peinture', 14, 0),
+(25, 'Les Menines', 'Diego Velazquez', 'Portrait de la famille royale espagnole.', 'Les Menines.jpg', 'peinture', 6, 1),
+(26, 'David de Michel-Ange', 'Michel-Ange', 'Sculpture representant le personnage biblique de David.', 'David de Michel-Ange.jpg', 'sculpture', 12, 0),
+(27, 'La Pieta', ' Michel-Ange', 'Sculpture representant la Vierge Marie tenant le corps du Christ.', 'La Pieta.jpg', 'sculpture', 13, 1),
+(28, 'Le Penseur', 'Auguste Rodin', 'Sculpture d\'un homme nu en position de reflexion.', 'Le Penseur.jpg', 'sculpture', 23, 0),
+(29, 'La Victoire de Samothrace', 'Inconnu ', 'Sculpture d\'une deesse ailee de la victoire.', 'La Victoire de Samothrace.jpg', 'sculpture', 24, 1),
+(30, 'L\'Esclave mourant', 'Michel-Ange', 'Sculpture representant un homme en train de mourir, emprisonne dans la pierre.', 'L\'Esclave mourant.jpg', 'sculpture', 23, 0),
+(31, 'La Venus de Milo', 'Inconnu', 'Sculpture d\'Aphrodite, deesse de l\'amour et de la beaute.', 'La Venus de Milo.jpg', 'sculpture', 49, 1),
+(32, 'L\'Homme qui marche', 'Alberto Giacometti', 'Sculpture representant une figure humaine allongée et etiree.', 'L\'Homme qui marche.jpg', 'sculpture', 19, 0),
+(33, 'La Porte de l\'Enfer', 'Auguste Rodin', 'Sculpture monumentale representant une scene de l\'Enfer de Dante.', 'La Porte de l\'Enfer.jpg', 'sculpture', 18, 1),
+(34, 'Les Trois Graces', ' Jean-Baptiste Carpeaux', ' Sculpture representant les trois deesses de la mythologie grecque.', 'Les_Trois_Graces.jpg', 'sculpture', 58, 0),
+(35, 'Le Discobole', 'Myron', 'Sculpture representant un athlete en train de lancer le disque.', 'Le Discobole.JPG', 'sculpture', 14, 1);
 
 -- --------------------------------------------------------
 
@@ -136,6 +137,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `validation` int(11) NOT NULL DEFAULT '0',
   `avatar` varchar(100) DEFAULT NULL,
   `N_commande` varchar(255) DEFAULT NULL,
+  `premium` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`)

@@ -23,29 +23,34 @@ require_once('functions.php');
     <nav>
         <div class="nav-bar">
             <i class='bx bx-menu sidebarOpen'></i>
-            <span class="logo navLogo"><a href="#">The imaginary museum</a></span>
+            <span class="logo navLogo"><a href="page_d_acceuil.php">The imaginary museum</a></span>
 
             <div class="menu">
                 <div class="logo-toggle">
-                    <span class="logo"><a href="#">The imaginary museum</a></span>
+                    <span class="logo"><a href="page_d_acceuil.php">The imaginary museum</a></span>
                     <i class='bx bx-x siderbarClose'></i>
                 </div>
 
                 <ul class="nav-links">
                     <?php if (!isset($_SESSION['user'])) { ?>
                         <li><a href="page_d_acceuil.php">Home</a></li>
-                        <li><a href="Exposition.php">Exposition</a></li>
-                        <li><a href="#">Shop</a></li>
                         <li><a href="register.php">Sign in</a></li>
                         <li><a href="login.php">Log in</a></li>
                     <?php } else { ?>
                         <li><a href="page_d_acceuil.php">Home</a></li>
-                        <li><a href="#">S</a></li>
-                        <li><a href="#">Exposition</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="Exposition.php">Exposition</a></li>
                         <li><a href="#">Account</a></li>
+                        <?php if ($_SESSION['user']['premium'] == 1) { ?>
+                            <li><img src="img/couronne.png" alt="Premium" class="logo-couronne"></li>
+                        <?php } ?>
                         <li><a href="logout.php">Logout</a></li>
+                        <?php if ($_SESSION['user']['premium'] == 0) { ?>
+                            <li><a href="Premium.php">Premium</a></li>
+                        <?php } ?>
                     <?php } ?>
                 </ul>
+
             </div>
 
             <div class="darkLight-searchBox">
