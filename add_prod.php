@@ -1,63 +1,28 @@
-
-
 <?php
-
-
 require_once('functions.php');
 
-
-
-
-
 if (isset($_POST["Envoyer"])) {
-
-
-
-
-
-
-    $bdd = connect();
-    $sql = "SELECT id FROM users  ";
-    $sth = $bdd->prepare($sql);
-    if (!$sth) {
-        die("Error during prepare: " . $bdd->errorInfo()[2]);
-    }
-    $sth->execute();
-    $users = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-
-
     $bdd = connect();
     
-
-    $sql = "INSERT INTO message (`sujet`, `msg`) VALUES (:sujet, :msg );";
+    $sql = "INSERT INTO produit (`nom_produit`, `description_produit`, `picture`, `categorie`, `quantite`) VALUES (:nom_produit, :description_produit, :picture, :categorie, :quantite)";
     
-
-
-    
-
     $sth = $bdd->prepare($sql);
     
-
-
     $success = $sth->execute([
-        'sujet'     => $_POST['sujet'],
-
-
-        'msg'     => $_POST['msg']
-
-
-       
+        ':nom_produit' => $_POST['nom_produit'],
+        ':description_produit' => $_POST['description_produit'],
+        ':picture' => $_POST['picture'],
+        ':categorie' => $_POST['categorie'],
+        ':quantite' => $_POST['quantite']
     ]);
-   
+
+    if ($success) {
+        echo "Les valeurs ont été insérées avec succès dans la base de données.";
+    } else {
+        echo "Erreur lors de l'insertion des valeurs : " . $sth->errorInfo()[2];
+    }
 }
 ?>
-
-
-
-
-
-
 
 
 
@@ -124,17 +89,25 @@ if (isset($_POST["Envoyer"])) {
 <body>
     <h2>Envoyer un message à l'administrateur</h2>
     <form method="post" action="">
+        <label for="produit">Nom de produit :</label>
+        <input type="text" id="nom_produit" name="nom_produit" required><br><br>
 
-        <label for="sujet">Sujet :</label>
-        <input type="text" id="sujet" name="sujet" required><br><br>
+        <label for="description">description du produit:</label>
+        <input type="text" id=" description_produit " name="description_produit" required><br><br>
 
-        <label for="message">Message :</label><br>
-        <textarea id="msg" name="msg" required></textarea><br><br>
+        <label for="photo">nom de la photo:</label><br>
+ <input type="text" id=" picture " name="picture" required><br><br>
 
+
+ 
+ <label for="categorie ">nom de la photo:</label><br>
+ <input type="text" id=" categorie " name="categorie" required><br><br>
+
+ <label for="quantite">Quantité :</label>
+    <input type="number" id="quantite" name="quantite"><br><br>
+    
 
         <input type="submit" name="Envoyer" value="create"  >
     </form>
 </body>
 </html>
-
-

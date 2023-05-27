@@ -20,6 +20,8 @@ if (isset($_POST["send"])) {
 
     $user = $sth->fetch();
 
+    
+
     if ($user && password_verify($_POST['password'], $user['password'])) {
         //dd($user);
 
