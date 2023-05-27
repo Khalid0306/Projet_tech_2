@@ -13,10 +13,8 @@
 
 
 
-
-
 $bdd = connect();
-$sql = "SELECT * FROM message";
+$sql = "SELECT * FROM message  ";
 $sth = $bdd->prepare($sql);
 if (!$sth) {
     die("Error during prepare: " . $bdd->errorInfo()[2]);
@@ -26,7 +24,6 @@ $users = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
-
 
 
 
