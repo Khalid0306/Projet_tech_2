@@ -1,6 +1,6 @@
 <?php
 
-require_once('functions.php');
+require_once('function.php');
 
 if (isset($_POST["send"])) {
     $bdd = connect();
