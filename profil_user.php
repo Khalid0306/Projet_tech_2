@@ -133,15 +133,15 @@ if (isset($_POST['update'])) {
     <?php endif; ?>
 
     <h1>Profil</h1>
-    <h2>Bienvenue, <?php echo $user['prenom']; ?>!</h2>
+    <h2>Bienvenue, <?php echo htmlspecialchars($user['prenom']); ?>!</h2>
 
     <h3>Informations personnelles</h3>
     <form method="POST" enctype="multipart/form-data">
         <label for="nom">Nom :</label>
-        <input type="text" name="nom" id="nom" value="<?php echo $user['nom']; ?>" required /><br/><br/>
+        <input type="text" name="nom" id="nom" value="<?php echo htmlspecialchars($user['nom']); ?>" required /><br/><br/>
 
         <label for="prenom">Prénom :</label>
-        <input type="text" name="prenom" id="prenom" value="<?php echo $user['prenom']; ?>" required /><br/><br/>
+        <input type="text" name="prenom" id="prenom" value="<?php echo htmlspecialchars($user['prenom']); ?>" required /><br/><br/>
 
         <label for="password">Nouveau mot de passe :</label>
         <input type="password" name="password" id="password" /><br/><br/>
@@ -149,27 +149,20 @@ if (isset($_POST['update'])) {
         <label for="sexe">Sexe :</label>
         <select name="sexe" id="sexe" required>
             <option value="">Sélectionnez</option>
-            <option value="M" <?php if ($user['sexe'] == 'M') echo 'selected'; ?>>Masculin</option>
-            <option value="F" <?php if ($user['sexe'] == 'F') echo 'selected'; ?>>Féminin</option>
+            <option value="Masculin" <?php if (isset($user['sexe']) && $user['sexe'] === 'Masculin') echo 'selected'; ?>>Masculin</option>
+            <option value="Féminin" <?php if (isset($user['sexe']) && $user['sexe'] === 'Féminin') echo 'selected'; ?>>Féminin</option>
         </select><br/><br/>
 
         <label for="adresse">Adresse :</label>
-        <input type="text" name="adresse" id="adresse" value="<?php echo $user['adresse']; ?>" required /><br/><br/>
+        <input type="text" name="adresse" id="adresse" value="<?php echo htmlspecialchars($user['adresse']); ?>" required /><br/><br/>
 
         <label for="pays">Pays :</label>
-        <input type="text" name="pays" id="pays" value="<?php echo isset($user['pays']) ? $user['pays'] : ''; ?>" required /><br/><br/>
+        <input type="text" name="pays" id="pays" value="<?php echo isset($user['pays']) ? htmlspecialchars($user['pays']) : ''; ?>" required /><br/><br/>
 
         <label for="avatar">Avatar :</label>
         <input type="file" name="avatar" id="avatar" /><br/><br/>
 
         <input type="submit" name="update" value="Mettre à jour" />
     </form>
-
-    <h3>Avatar actuel</h3>
-    <?php if (!empty($user['avatar'])) : ?>
-        <img src="avatars/<?php echo $user['avatar']; ?>" alt="Avatar" />
-    <?php else : ?>
-        <p>Aucun avatar.</p>
-    <?php endif; ?>
 </body>
 </html>
