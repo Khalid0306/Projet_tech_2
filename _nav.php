@@ -1,5 +1,5 @@
 <?php
-require_once('function.php');
+require_once('functions.php');
 ?>
 <!DOCTYPE html>
 <!-- Source nav Coding By CodingNepal - codingnepalweb.com -->
