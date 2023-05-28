@@ -26,6 +26,15 @@ if (isset($_POST["send"])) {
         //dd($user);
 
 
+        if ($_SESSION['user']['valide'] == 0) {
+     
+            header('Location: login.php');
+
+            $msg = "votre compte a été desactivé !";
+
+        
+        }
+
         if ($_SESSION['user']['validated'] == 0) {
             $_SESSION['user'] = $user;
             header('Location: login.php');
