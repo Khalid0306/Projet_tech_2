@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
     }
 
     // Gestion de l'avatar
-    if ($_FILES['avatar']['name']) {
+    if (isset($_FILES['avatar']['name']) && !empty($_FILES['avatar']['name'])) {
         $avatar = $_FILES['avatar'];
 
         $allowedTypes = array('image/jpeg', 'image/png');
@@ -92,123 +92,84 @@ if (isset($_POST['update'])) {
         $_SESSION['user']['avatar'] = $avatarName;
     }
 
-    // Vérification des erreurs
-    if (count($errors) === 0) {
-        // Mise à jour des coordonnées dans la base de données
-        $sql = "UPDATE users SET nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, pays = :pays WHERE id = :id;";
-        $sth = $bdd->prepare($sql);
-        $sth->execute([
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'sexe' => $sexe,
-            'adresse' => $adresse,
-            'pays' => $pays,
-            'id' => $user['id']
-        ]);
+    // Mise à jour des autres coordonnées de l'utilisateur
+    $sql = "UPDATE users SET nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, pays = :pays WHERE id = :id;";
+    $sth = $bdd->prepare($sql);
+    $sth->execute([
+        'nom' => $nom,
+        'prenom' => $prenom,
+        'sexe' => $sexe,
+        'adresse' => $adresse,
+        'pays' => $pays,
+        'id' => $user['id']
+    ]);
 
-        // Redirection vers la page de profil avec un message de succès
-        header('Location: profil_user.php?success=1');
-        exit();
-    }
+    // Redirection vers la page de profil avec un message de succès
+    header('Location: profil_user.php?success=1');
+    exit();
 }
-
-// Récupération des données de l'utilisateur depuis la base de données
-$sql = "SELECT * FROM users WHERE id = :id;";
-$sth = $bdd->prepare($sql);
-$sth->execute([
-    'id' => $user['id']
-]);
-
-$user = $sth->fetch();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profil utilisateur</title>
-    <style>
-        body {
-            background-image: url(img/csm_img_bandeau_musee_ec5567aba3.jpg);
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
-    <link rel="stylesheet" href="Style/login.css">
+    <title>Profil</title>
 </head>
 <body>
-    <?php require_once('_header.php'); ?>
-
-    <div class="center">
-        <h1>Profil utilisateur</h1>
-
-        <?php
-        // Affichage des erreurs
-        if (isset($errors) && count($errors) > 0) {
-            echo '<div class="errors">';
-            foreach ($errors as $error) {
-                echo '<div>' . $error . '</div>';
-            }
-            echo '</div>';
-        }
-
-        // Affichage du message de succès après la mise à jour des coordonnées
-        if (isset($_GET['success']) && $_GET['success'] === '1') {
-            echo '<div class="success">Vos coordonnées ont été mises à jour avec succès.</div>';
-        }
-        ?>
-
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="txt_field">
-                <input type="text" name="nom" id="nom" value="<?php echo $user['nom']; ?>" required />
-                <label for="nom">Nom</label>
-            </div>
-
-            <div class="txt_field">
-                <input type="text" name="prenom" id="prenom" value="<?php echo $user['prenom']; ?>" required />
-                <label for="prenom">Prénom</label>
-            </div>
-
-            <div class="txt_field">
-                <input type="password" name="password" id="password" />
-                <label for="password">Mot de passe</label>
-            </div>
-
-            <div class="txt_field">
-                <select name="sexe" id="sexe" required>
-                    <option value="">Sélectionnez le sexe</option>
-                    <option value="homme" <?php echo ($user['sexe'] === 'homme') ? 'selected' : ''; ?>>Homme</option>
-                    <option value="femme" <?php echo ($user['sexe'] === 'femme') ? 'selected' : ''; ?>>Femme</option>
-                </select>
-                <label for="sexe">Sexe</label>
-            </div>
-
-            <div class="txt_field">
-                <input type="text" name="adresse" id="adresse" value="<?php echo $user['adresse']; ?>" required />
-                <label for="adresse">Adresse postale</label>
-            </div>
-
-            <div class="txt_field">
-                <input type="text" name="pays" id="pays" value="<?php echo $user['pays']; ?>" required />
-                <label for="pays">Pays</label>
-            </div>
-
-            <div class="txt_field">
-                <input type="file" name="avatar" id="avatar" accept="image/*" />
-                <label for="avatar">Avatar</label>
-            </div>
-
-            <div>
-                <input type="submit" class="btn btn-green" name="update" value="Enregistrer" />
-            </div>
-        </form>
-
-        <!-- Affichage de l'avatar de l'utilisateur -->
-        <?php if (!empty($user['avatar'])): ?>
-        <div>
-            <h2>Avatar actuel</h2>
-            <img src="avatars/<?php echo $user['avatar']; ?>" alt="Avatar de l'utilisateur" />
+    <?php if (!empty($errors)) : ?>
+        <div class="errors">
+            <ul>
+                <?php foreach ($errors as $error) : ?>
+                    <li><?php echo $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
         </div>
-        <?php endif; ?>
-    </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['success']) && $_GET['success'] == 1) : ?>
+        <div class="success">
+            Vos coordonnées ont été mises à jour avec succès.
+        </div>
+    <?php endif; ?>
+
+    <h1>Profil</h1>
+    <h2>Bienvenue, <?php echo $user['prenom']; ?>!</h2>
+
+    <h3>Informations personnelles</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" value="<?php echo $user['nom']; ?>" required /><br/><br/>
+
+        <label for="prenom">Prénom :</label>
+        <input type="text" name="prenom" id="prenom" value="<?php echo $user['prenom']; ?>" required /><br/><br/>
+
+        <label for="password">Nouveau mot de passe :</label>
+        <input type="password" name="password" id="password" /><br/><br/>
+
+        <label for="sexe">Sexe :</label>
+        <select name="sexe" id="sexe" required>
+            <option value="">Sélectionnez</option>
+            <option value="M" <?php if ($user['sexe'] == 'M') echo 'selected'; ?>>Masculin</option>
+            <option value="F" <?php if ($user['sexe'] == 'F') echo 'selected'; ?>>Féminin</option>
+        </select><br/><br/>
+
+        <label for="adresse">Adresse :</label>
+        <input type="text" name="adresse" id="adresse" value="<?php echo $user['adresse']; ?>" required /><br/><br/>
+
+        <label for="pays">Pays :</label>
+        <input type="text" name="pays" id="pays" value="<?php echo isset($user['pays']) ? $user['pays'] : ''; ?>" required /><br/><br/>
+
+        <label for="avatar">Avatar :</label>
+        <input type="file" name="avatar" id="avatar" /><br/><br/>
+
+        <input type="submit" name="update" value="Mettre à jour" />
+    </form>
+
+    <h3>Avatar actuel</h3>
+    <?php if (!empty($user['avatar'])) : ?>
+        <img src="avatars/<?php echo $user['avatar']; ?>" alt="Avatar" />
+    <?php else : ?>
+        <p>Aucun avatar.</p>
+    <?php endif; ?>
 </body>
 </html>
