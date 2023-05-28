@@ -20,8 +20,6 @@ if (isset($_POST["send"])) {
 
     $user = $sth->fetch();
 
-    
-
     if ($user && password_verify($_POST['password'], $user['password'])) {
         //dd($user);
 
@@ -36,6 +34,8 @@ if (isset($_POST["send"])) {
     } else {
         $msg = "Email ou mot de passe incorrect !";
     }
+
+    header('Location: page_d_acceuil.php');
 }
 ?>
 

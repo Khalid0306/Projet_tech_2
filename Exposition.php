@@ -2,6 +2,11 @@
 require_once('functions.php');
 require_once('_header.php');
 
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html>
