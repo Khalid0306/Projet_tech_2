@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 27 mai 2023 à 20:05
--- Version du serveur : 5.7.36
--- Version de PHP : 7.4.26
+-- Généré le : dim. 28 mai 2023 à 09:50
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nom` varchar(30) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -48,16 +48,16 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 DROP TABLE IF EXISTS `oeuvre`;
 CREATE TABLE IF NOT EXISTS `oeuvre` (
-  `id_oeuvre` int(11) NOT NULL AUTO_INCREMENT,
+  `id_oeuvre` int NOT NULL AUTO_INCREMENT,
   `nom_oeuvre` varchar(30) NOT NULL,
   `nom_artiste` varchar(30) NOT NULL,
   `description_oeuvre` varchar(300) NOT NULL,
-  `picture` varchar(300) CHARACTER SET utf8mb4 NOT NULL,
+  `picture` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `categorie` varchar(250) NOT NULL,
-  `likes` int(255) DEFAULT '0',
-  `premium_only` int(11) NOT NULL DEFAULT '0',
+  `likes` int DEFAULT '0',
+  `premium_only` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_oeuvre`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `oeuvre`
@@ -93,14 +93,14 @@ INSERT INTO `oeuvre` (`id_oeuvre`, `nom_oeuvre`, `nom_artiste`, `description_oeu
 
 DROP TABLE IF EXISTS `produit`;
 CREATE TABLE IF NOT EXISTS `produit` (
-  `id_produit` int(11) NOT NULL AUTO_INCREMENT,
+  `id_produit` int NOT NULL AUTO_INCREMENT,
   `nom_produit` varchar(100) NOT NULL,
   `description_produit` varchar(300) NOT NULL,
-  `picture` varchar(300) CHARACTER SET utf8mb4 NOT NULL,
+  `picture` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `catégorie` varchar(250) NOT NULL,
-  `quantité` int(255) DEFAULT NULL,
+  `quantité` int DEFAULT NULL,
   PRIMARY KEY (`id_produit`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `produit`
@@ -126,22 +126,31 @@ INSERT INTO `produit` (`id_produit`, `nom_produit`, `description_produit`, `pict
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nom` varchar(30) DEFAULT NULL,
+  `sexe` enum('Masculin','Féminin') NOT NULL,
+  `pays` varchar(50) NOT NULL,
   `prenom` varchar(30) DEFAULT NULL,
   `adresse` varchar(100) DEFAULT NULL,
-  `validation` int(11) NOT NULL DEFAULT '0',
+  `validation` int NOT NULL DEFAULT '0',
   `avatar` varchar(100) DEFAULT NULL,
   `N_commande` varchar(255) DEFAULT NULL,
-  `premium` int(11) NOT NULL DEFAULT '0',
+  `premium` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `created_at`, `updated_at`, `nom`, `sexe`, `pays`, `prenom`, `adresse`, `validation`, `avatar`, `N_commande`, `premium`) VALUES
+(5, 'gemiondele@gmail.com', '$2y$10$q7/wKBjEWIs3yxNZAmiP4uyPTEaLlrBkHfhuS6Ewc0Zi3erf7k7vS', '2023-05-27 23:33:09', '2023-05-27 23:33:09', NULL, 'Masculin', '', NULL, NULL, 0, NULL, NULL, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
