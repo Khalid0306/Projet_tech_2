@@ -1,6 +1,6 @@
 <?php
 
-require_once('function.php');
+require_once('functions.php');
 
 if (isset($_POST["send"])) {
     $bdd = connect();
@@ -8,13 +8,14 @@ if (isset($_POST["send"])) {
 
     $sth = $bdd->prepare($sql);
 
+
     if (!$sth) {
-        $errorInfo = $bdd->errorInfo();
-        die("Error during prepare: " . $errorInfo[2]);
+        die("Error during prepare: " . $bdd->errorInfo()[2]);
     }
 
+
     $sth->execute([
-        'email' => $_POST['email']
+        'email'     => $_POST['email']
     ]);
 
     $user = $sth->fetch();
@@ -27,18 +28,18 @@ if (isset($_POST["send"])) {
             $_SESSION['user'] = $user;
             header('Location: login.php');
         } else {
+
             header('Location: register.php');
         }
     } else {
-        $msg = "Email or password incorrect!";
+        $msg = "Email ou mot de passe incorrect !";
     }
 
     header('Location: page_d_acceuil.php');
 }
-
-require_once('_header.php');
 ?>
 
+<?php require_once('_header.php'); ?>
 <link rel="stylesheet" href="Style/login.css">
 <style>
     body {
@@ -47,10 +48,9 @@ require_once('_header.php');
         background-position: center;
     }
 </style>
-
 <div class="center">
     <form action="" method="post">
-        <h1>Welcome back!</h1>
+        <h1>Welcome back !</h1>
 
         <?php if (isset($msg)) {
             echo "<div>" . $msg . "</div>";
@@ -64,17 +64,21 @@ require_once('_header.php');
             <input type="password" name="password" id="password" required />
             <label for="password">Password</label>
         </div>
-        <div class="pass"><a class="pass" href="#"> Forgot Password?</a></div>
+        <div class="pass"><a class="pass" href="#"> Forgot Password ?</a></div>
         <div>
             <input type="submit" name="send" value="Connexion" />
         </div>
         <div class="signup_link">
-            Not a member? <a href="register.php">Sign in</a>
+            Not a member ?<a href="register.php">Sign in</a>
             <br>
-            Are you an admin? <a href="login.php">Log in</a>
+            Are you an admin ?<a href="login.php">log in</a>
         </div>
     </form>
 </div>
 
 </body>
+
 </html>
+
+
+</div>
