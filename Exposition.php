@@ -152,19 +152,45 @@ if (!isset($_SESSION['user'])) {
         document.addEventListener('DOMContentLoaded', function() {
             const artworkItems = document.querySelectorAll('.artwork-item');
             const filterButtons = document.querySelectorAll('.filter-buttons button');
+            let selectedCategory = localStorage.getItem('selectedCategory') || 'all';
 
+            // Appliquer la classe 'active' au bouton correspondant à la catégorie sélectionnée
+            filterButtons.forEach(function(button) {
+                const category = button.getAttribute('data-category');
+                if (category === selectedCategory) {
+                    button.classList.add('active');
+                }
+            });
+
+            // Filtrer les œuvres d'art en fonction de la catégorie sélectionnée
+            artworkItems.forEach(function(item) {
+                const artworkCategory = item.querySelector('.artwork-category').textContent;
+
+                if (selectedCategory === 'all' || selectedCategory === artworkCategory) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Ajouter un écouteur d'événement au clic sur les boutons de filtre
             filterButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
-                    // Supprime la classe 'active' de tous les boutons
+                    // Supprimer la classe 'active' de tous les boutons
                     filterButtons.forEach(function(btn) {
                         btn.classList.remove('active');
                     });
 
-                    // Ajoute la classe 'active' au bouton cliqué
+                    // Ajouter la classe 'active' au bouton cliqué
                     button.classList.add('active');
 
-                    const selectedCategory = button.getAttribute('data-category');
+                    // Récupérer la catégorie sélectionnée
+                    selectedCategory = button.getAttribute('data-category');
 
+                    // Stocker la catégorie sélectionnée dans le localStorage
+                    localStorage.setItem('selectedCategory', selectedCategory);
+
+                    // Filtrer les œuvres d'art en fonction de la catégorie sélectionnée
                     artworkItems.forEach(function(item) {
                         const artworkCategory = item.querySelector('.artwork-category').textContent;
 
@@ -181,29 +207,40 @@ if (!isset($_SESSION['user'])) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.like-button').on('click', function() {
-                var artworkId = $(this).data('id_oeuvre');
-                var likesCounter = $(this).find('.like-count');
-                var likeButton = $(this);
+        document.addEventListener('DOMContentLoaded', function() {
+            const artworkItems = document.querySelectorAll('.artwork-item');
+            const likeButtons = document.querySelectorAll('.like-button');
 
-                $.ajax({
-                    url: 'update_likes.php',
-                    type: 'POST',
-                    data: {
-                        id: artworkId
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        likesCounter.text(response.likes);
-                        likeButton.addClass('liked');
-                    },
-                    error: function() {
-                        console.log('Erreur lors de la mise à jour des likes.');
-                    }
+            likeButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var artworkId = button.getAttribute('data-id_oeuvre');
+                    var likesCounter = button.querySelector('.like-count');
+                    var likeButton = button;
+
+                    $.ajax({
+                        url: 'update_likes.php',
+                        type: 'POST',
+                        data: {
+                            id: artworkId
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            likesCounter.textContent = response.likes;
+
+                            // Vérifier si l'utilisateur a liké l'œuvre pour appliquer la classe CSS appropriée
+                            if (likeButton.classList.contains('liked')) {
+                                likeButton.classList.remove('liked');
+                            } else {
+                                likeButton.classList.add('liked');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
                 });
             });
-        });;
+        });
     </script>
 
 </head>
@@ -224,7 +261,7 @@ if (!isset($_SESSION['user'])) {
     $stmt->bindParam(':id', $userId);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     ?>
 
     <div class="container1">
@@ -238,9 +275,11 @@ if (!isset($_SESSION['user'])) {
             <button data-category="sculpture">sculpture</button>
         </div>
         <div class="artwork">
-            <?php foreach ($artworks as $artwork) : ?>
+            <?php foreach ($artworks as $artwork) :
+            ?>
+
                 <div class="artwork-item">
-                    <?php if ($artwork['premium_only']==1 && !$user['premium']==1) : ?>
+                    <?php if ($artwork['premium_only'] == 1 && !$user['premium'] == 1) : ?>
                         <!-- Si l'œuvre est réservée aux utilisateurs premium et l'utilisateur n'est pas premium -->
                         <img class="artwork-image" src="img/flou.png" alt="Image floutée">
                     <?php else : ?>
