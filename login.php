@@ -1,43 +1,45 @@
 <?php
+
 require_once('functions.php');
 
 if (isset($_POST["send"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-
-
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-
-    
     $bdd = connect();
-    $sql = "SELECT * FROM users WHERE email = :email;";
-    
+    $sql = "SELECT * FROM users WHERE `email` = :email;";
+
     $sth = $bdd->prepare($sql);
-    $sth->bindValue(':email', $email);
-   
 
 
     if (!$sth) {
         die("Error during prepare: " . $bdd->errorInfo()[2]);
     }
 
-    $sth->execute();
-    
+
+    $sth->execute([
+        'email'     => $_POST['email']
+    ]);
+
     $user = $sth->fetch();
 
-    if ($user && password_verify(  $_POST["password"] , $user['password'])) {
-        // Utilisateur et mot de passe corrects, redirigez vers la page d'inscription
-        header('Location: page_d_acceuil.php');
-        exit(); // Assurez-vous de terminer le script après une redirection
+    if ($user && password_verify($_POST['password'], $user['password'])) {
+        //dd($user);
+
+
+        if ($_SESSION['user']['validated'] == 0) {
+            $_SESSION['user'] = $user;
+            header('Location: login.php');
+        } else {
+
+            header('Location: register.php');
+        }
     } else {
         $msg = "Email ou mot de passe incorrect !";
     }
-}
 
-require_once('_header.php');
+    header('Location: index.php');
+}
 ?>
+
+<?php require_once('_header.php'); ?>
 <link rel="stylesheet" href="Style/login.css">
 <style>
     body {
@@ -77,3 +79,6 @@ require_once('_header.php');
 </body>
 
 </html>
+
+
+</div>

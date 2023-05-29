@@ -1,5 +1,5 @@
 <?php
     session_start();
     session_destroy();
-    header('Location: page_d_acceuil.php');
+    header('Location: index.php');
 ?>
