@@ -1,5 +1,5 @@
 <?php
-require_once('functions.php');
+require_once('function.php');
 $bdd = connect();
 
 // Vérification de l'authentification de l'utilisateur
@@ -19,6 +19,7 @@ if (isset($_POST['update'])) {
     $sexe = $_POST['sexe'];
     $adresse = $_POST['adresse'];
     $pays = $_POST['pays'];
+    $email = $_POST['email'];
 
     // Validation des données
     $errors = array();
@@ -54,66 +55,74 @@ if (isset($_POST['update'])) {
         $errors[] = "Le pays est obligatoire.";
     }
 
+    if (empty($email)) {
+        $errors[] = "L'adresse e-mail est obligatoire.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "L'adresse e-mail n'est pas valide.";
+    }
+
     // Gestion de l'avatar
     if (isset($_FILES['avatar']['name']) && !empty($_FILES['avatar']['name'])) {
-        $avatar = $_FILES['avatar'];
+        // ...
+    }
 
-        $allowedTypes = array('image/jpeg', 'image/png');
-        $maxSize = 2 * 1024 * 1024; // 2MB
-
-        // Vérification du type de fichier
-        if (!in_array($avatar['type'], $allowedTypes)) {
-            $errors[] = "Le type de fichier de l'avatar n'est pas valide. Veuillez choisir une image au format JPEG ou PNG.";
-        }
-
-        // Vérification de la taille du fichier
-        if ($avatar['size'] > $maxSize) {
-            $errors[] = "La taille de l'avatar dépasse la limite autorisée (2MB). Veuillez choisir une image plus petite.";
-        }
-
-        // Génération d'un nom de fichier unique pour l'avatar
-        $avatarName = uniqid() . '_' . $avatar['name'];
-
-        // Déplacement du fichier temporaire vers le dossier des avatars
-        $destination = 'avatars/' . $avatarName;
-        move_uploaded_file($avatar['tmp_name'], $destination);
-
-        // Mise à jour du nom de fichier de l'avatar dans la base de données
-        $sql = "UPDATE users SET avatar = :avatar WHERE id = :id;";
+    // Vérification s'il y a des erreurs
+    if (empty($errors)) {
+        // Mise à jour des coordonnées dans la base de données
+        $sql = "UPDATE users SET nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, pays = :pays, email = :email WHERE id = :id;";
         $sth = $bdd->prepare($sql);
         $sth->execute([
-            'avatar' => $avatarName,
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'sexe' => $sexe,
+            'adresse' => $adresse,
+            'pays' => $pays,
+            'email' => $email,
             'id' => $user['id']
         ]);
 
-        // Mettre à jour l'avatar de l'utilisateur dans la session
-        $_SESSION['user']['avatar'] = $avatarName;
+        // Redirection vers la page du profil
+        header('Location: profil_user.php');
+        exit();
     }
-
-    // Mise à jour des autres coordonnées de l'utilisateur
-    $sql = "UPDATE users SET nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, pays = :pays WHERE id = :id;";
-    $sth = $bdd->prepare($sql);
-    $sth->execute([
-        'nom' => $nom,
-        'prenom' => $prenom,
-        'sexe' => $sexe,
-        'adresse' => $adresse,
-        'pays' => $pays,
-        'id' => $user['id']
-    ]);
-
-    // Redirection vers la page de profil avec un message de succès
-    header('Location: profil_user.php?success=1');
-    exit();
 }
+
+// Récupération des informations du profil depuis la base de données
+$sql = "SELECT * FROM users WHERE id = :id;";
+$sth = $bdd->prepare($sql);
+$sth->execute(['id' => $user['id']]);
+$profil = $sth->fetch();
+
+// Récupération de l'historique de l'utilisateur
+$sql = "SELECT * FROM historique WHERE user_id = :user_id;";
+$sth = $bdd->prepare($sql);
+$sth->execute(['user_id' => $user['id']]);
+$historique = $sth->fetchAll();
+
+// Récupération de la liste des commandes en cours
+$sql = "SELECT * FROM commandes WHERE user_id = :user_id AND etat = 'en cours';";
+$sth = $bdd->prepare($sql);
+$sth->execute(['user_id' => $user['id']]);
+$commandesEnCours = $sth->fetchAll();
+
+// Récupération de la liste des commandes déjà achetées
+$sql = "SELECT * FROM commandes WHERE user_id = :user_id AND etat = 'acheté';";
+$sth = $bdd->prepare($sql);
+$sth->execute(['user_id' => $user['id']]);
+$commandesAchetees = $sth->fetchAll();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profil</title>
+    <title>Espace utilisateur</title>
 </head>
 <body>
+    <h1>Espace utilisateur</h1>
+
+    <h2>Profil utilisateur</h2>
+
+    <!-- Affichage des erreurs -->
     <?php if (!empty($errors)) : ?>
         <div class="errors">
             <ul>
@@ -124,43 +133,74 @@ if (isset($_POST['update'])) {
         </div>
     <?php endif; ?>
 
-    <?php if (isset($_GET['success']) && $_GET['success'] == 1) : ?>
-        <div class="success">
-            Vos coordonnées ont été mises à jour avec succès.
+    <!-- Affichage du formulaire de modification des coordonnées -->
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" value="<?php echo $profil['nom']; ?>" required>
         </div>
-    <?php endif; ?>
-
-    <h1>Profil</h1>
-    <h2>Bienvenue, <?php echo htmlspecialchars($user['prenom']); ?>!</h2>
-
-    <h3>Informations personnelles</h3>
-    <form method="POST" enctype="multipart/form-data">
-        <label for="nom">Nom :</label>
-        <input type="text" name="nom" id="nom" value="<?php echo htmlspecialchars($user['nom']); ?>" required /><br/><br/>
-
-        <label for="prenom">Prénom :</label>
-        <input type="text" name="prenom" id="prenom" value="<?php echo htmlspecialchars($user['prenom']); ?>" required /><br/><br/>
-
-        <label for="password">Nouveau mot de passe :</label>
-        <input type="password" name="password" id="password" /><br/><br/>
-
-        <label for="sexe">Sexe :</label>
-        <select name="sexe" id="sexe" required>
-            <option value="">Sélectionnez</option>
-            <option value="Masculin" <?php if (isset($user['sexe']) && $user['sexe'] === 'Masculin') echo 'selected'; ?>>Masculin</option>
-            <option value="Féminin" <?php if (isset($user['sexe']) && $user['sexe'] === 'Féminin') echo 'selected'; ?>>Féminin</option>
-        </select><br/><br/>
-
-        <label for="adresse">Adresse :</label>
-        <input type="text" name="adresse" id="adresse" value="<?php echo htmlspecialchars($user['adresse']); ?>" required /><br/><br/>
-
-        <label for="pays">Pays :</label>
-        <input type="text" name="pays" id="pays" value="<?php echo isset($user['pays']) ? htmlspecialchars($user['pays']) : ''; ?>" required /><br/><br/>
-
-        <label for="avatar">Avatar :</label>
-        <input type="file" name="avatar" id="avatar" /><br/><br/>
-
-        <input type="submit" name="update" value="Mettre à jour" />
+        <div>
+            <label for="prenom">Prénom :</label>
+            <input type="text" name="prenom" value="<?php echo $profil['prenom']; ?>" required>
+        </div>
+        <div>
+            <label for="password">Nouveau mot de passe :</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <label for="sexe">Sexe :</label>
+            <select name="sexe" required>
+                <option value="M" <?php if ($profil['sexe'] == 'M') echo 'selected'; ?>>Masculin</option>
+                <option value="F" <?php if ($profil['sexe'] == 'F') echo 'selected'; ?>>Féminin</option>
+            </select>
+        </div>
+        <div>
+            <label for="adresse">Adresse :</label>
+            <input type="text" name="adresse" value="<?php echo $profil['adresse']; ?>" required>
+        </div>
+        <div>
+            <label for="pays">Pays :</label>
+            <input type="text" name="pays" value="<?php echo $profil['pays']; ?>" required>
+        </div>
+        <div>
+            <label for="email">Adresse e-mail :</label>
+            <input type="email" name="email" value="<?php echo $profil['email']; ?>" required>
+        </div>
+        <div>
+            <label for="avatar">Avatar :</label>
+            <input type="file" name="avatar">
+        </div>
+        <div>
+            <input type="submit" name="update" value="Enregistrer les modifications">
+        </div>
     </form>
+
+    <!-- Affichage de l'avatar actuel -->
+    <div>
+        <?php if (!empty($profil['avatar'])) : ?>
+            <img src="<?php echo $profil['avatar']; ?>" alt="Avatar">
+        <?php endif; ?>
+    </div>
+
+    <h2>Historique</h2>
+    <ul>
+        <?php foreach ($historique as $item) : ?>
+            <li><?php echo $item['action']; ?></li>
+        <?php endforeach; ?>
+    </ul>
+
+    <h2>Liste des commandes en cours</h2>
+    <ul>
+        <?php foreach ($commandesEnCours as $commande) : ?>
+            <li><?php echo $commande['nom_produit']; ?></li>
+        <?php endforeach; ?>
+    </ul>
+
+    <h2>Liste des commandes déjà achetées</h2>
+    <ul>
+        <?php foreach ($commandesAchetees as $commande) : ?>
+            <li><?php echo $commande['nom_produit']; ?></li>
+        <?php endforeach; ?>
+    </ul>
 </body>
 </html>
