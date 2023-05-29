@@ -1,19 +1,6 @@
-
-
-
-
-
-
-
-<?php
-require_once ('_header.php');
-?>
-
-
-
-
+<?php require_once ('_header.php');?>
 <div class="payment-title">
-    <h1>Payment Information</h1>
+  <h1>Payment Information</h1>
 </div>
 <div class="container preload">
     <div class="creditcard">
@@ -48,6 +35,8 @@ require_once ('_header.php');
                     c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z" />
                         </g>
                         <g>
+
+
                             <g>
                                 <rect x="82" y="70" class="st12" width="1.5" height="60" />
                             </g>

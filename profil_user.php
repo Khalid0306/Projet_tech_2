@@ -3,12 +3,12 @@ require_once('functions.php');
 $bdd = connect();
 
 // Vérification de l'authentification de l'utilisateur
-if (!isset($_SESSION['user'])) {
+if (isset($_SESSION['user'])) {
     header('Location: login.php');
     exit();
 }
 
-$user = $_SESSION['user'];
+//$user = $_SESSION['user'];
 
 // Traitement du formulaire de modification des coordonnées
 if (isset($_POST['update'])) {
