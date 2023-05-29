@@ -30,7 +30,7 @@ if (isset($_POST["Envoyer"])) {
     $bdd = connect();
     
 
-    $sql = "INSERT INTO message (`sujet`, `msg`) VALUES (:sujet, :msg );";
+    $sql = "INSERT INTO message (`sujet`, `msg`,`email`) VALUES (:sujet, :msg ,:email);";
     
 
 
@@ -44,9 +44,9 @@ if (isset($_POST["Envoyer"])) {
         'sujet'     => $_POST['sujet'],
 
 
-        'msg'     => $_POST['msg']
+        'msg'     => $_POST['msg'],
 
-
+        'email'     => $_POST['email']
        
     ]);
    
@@ -125,12 +125,18 @@ if (isset($_POST["Envoyer"])) {
     <h2>Envoyer un message à l'administrateur</h2>
     <form method="post" action="">
 
-        <label for="sujet">Sujet :</label>
+
+    <label for="sujet">Sujet :</label>
         <input type="text" id="sujet" name="sujet" required><br><br>
+
 
         <label for="message">Message :</label><br>
         <textarea id="msg" name="msg" required></textarea><br><br>
 
+        <label for="Email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        
 
         <input type="submit" name="Envoyer" value="create"  >
     </form>

@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+<?php
+require_once ('_header.php');
+?>
+
+
+
+
 <div class="payment-title">
     <h1>Payment Information</h1>
 </div>
@@ -121,7 +135,18 @@
         <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
     </div>
 
-    <div class = "bouton">     <a href="#" class="add-to-cart-btn">terminer l'achat</a>      </div>
+
+    <button type="submit" class="btn btn-glyphicon-send">
+    
+
+
+    <a href="form.php" style="color: inherit; text-decoration: green;">
+    
+    Etape Suivante <span class="glyphicon glyphicon-send"></span></button>
+
+
+
+    
 </div>
 <style>
 body {
@@ -207,6 +232,30 @@ input {
     top: calc(50% - 17px);
     width: 60px;
 }
+
+
+
+
+.btn-glyphicon-send {
+  background-color: green ;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 10px;
+}
+
+.btn-glyphicon-send:hover {
+  background-color: green;
+}
+
+
+
+
+
+
+
+
+
 
 /* CREDIT CARD IMAGE STYLING */
 .preload * {
@@ -761,3 +810,17 @@ window.onload = function () {
 
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

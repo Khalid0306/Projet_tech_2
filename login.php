@@ -35,7 +35,7 @@ if (isset($_POST["send"])) {
         $msg = "Email ou mot de passe incorrect !";
     }
 
-    header('Location: page_d_acceuil.php');
+    header('Location: index.php');
 }
 ?>
 
