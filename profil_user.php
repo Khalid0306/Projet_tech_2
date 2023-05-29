@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-require_once('function.php');
+require_once('functions.php');
 $bdd = connect();
 
 // Vérification de l'authentification de l'utilisateur
