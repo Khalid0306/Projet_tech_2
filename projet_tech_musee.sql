@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 28 mai 2023 à 21:28
+-- Généré le : lun. 29 mai 2023 à 13:07
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   PRIMARY KEY (`id_likes`),
   UNIQUE KEY `id` (`id`,`id_oeuvre`),
   KEY `id_oeuvre` (`id_oeuvre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -128,9 +128,9 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
 --
 
 INSERT INTO `oeuvre` (`id_oeuvre`, `nom_oeuvre`, `nom_artiste`, `description_oeuvre`, `picture`, `categorie`, `likes`, `premium_only`) VALUES
-(1, 'La Joconde', 'Leonardo da Vinci', 'Portrait enigmatique d\'une femme au sourire mysterieux.', 'La joconde.jpg', 'peinture', 46, 0),
-(2, 'Les Nympheas', 'Claude Monet', 'Serie de peintures representant des nympheas dans un etang.', 'Les_nympheas.webp', 'peinture', 17, 1),
-(3, 'La Nuit etoilee', ' Vincent van Gogh', 'Paysage nocturne avec un ciel etoile tourbillonnant.', 'La Nuit etoilee.jpg', 'peinture', 17, 0),
+(1, 'La Joconde', 'Leonardo da Vinci', 'Portrait enigmatique d\'une femme au sourire mysterieux.', 'La joconde.jpg', 'peinture', 47, 0),
+(2, 'Les Nympheas', 'Claude Monet', 'Serie de peintures representant des nympheas dans un etang.', 'Les_nympheas.webp', 'peinture', 18, 1),
+(3, 'La Nuit etoilee', ' Vincent van Gogh', 'Paysage nocturne avec un ciel etoile tourbillonnant.', 'La Nuit etoilee.jpg', 'peinture', 18, 0),
 (19, 'Guernica', 'Pablo Picasso', 'Peinture representant les horreurs de la guerre civile espagnole.', 'Guernica.jpg', 'peinture', 18, 1),
 (20, 'La Persistance de la memoire', 'Salvador Dali', 'Montres molles suspendues dans un paysage surrealiste.', 'La Persistance de la memoire.jpg', 'peinture', 12, 0),
 (21, 'Les Tournesols', 'Vincent van Gogh', 'Bouquet de tournesols dans un vase.', 'Les Tournesols.jpg', 'peinture', 14, 1),
@@ -196,8 +196,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nom` varchar(30) DEFAULT NULL,
-  `sexe` enum('Masculin','Féminin') NOT NULL,
-  `pays` varchar(50) NOT NULL,
+  `sexe` enum('Masculin','Féminin') DEFAULT NULL,
+  `pays` varchar(50) DEFAULT NULL,
   `prenom` varchar(30) DEFAULT NULL,
   `adresse` varchar(100) DEFAULT NULL,
   `avatar` varchar(100) DEFAULT NULL,
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Contraintes pour les tables déchargées
