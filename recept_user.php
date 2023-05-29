@@ -5,17 +5,19 @@
 
  require_once('functions.php');
 
+if(!isset($_SESSION['user']));{
+  header('Location: login.php');
+}
 
 
 
-
-
-
-
+$email=$_SESSION['user']['email'];
 
 $bdd = connect();
-$sql = "SELECT * FROM message  ";
+$sql = "SELECT * FROM message where email:email ";
 $sth = $bdd->prepare($sql);
+
+$sth->bindValue(':email', $email);
 if (!$sth) {
     die("Error during prepare: " . $bdd->errorInfo()[2]);
 }

@@ -32,9 +32,10 @@ if (isset($_POST['envoyer'])) {
     if ($user && password_verify($_POST['password_old'], $user['password'])) {
 
 
-        if ($_SESSION['user']['valide'] < 6) {
+        
             $msg = "votre demande a bien ete transmise !";
-        } else {
+    }
+        else {
 
             $hashedPassword = password_hash($new_passwordd, PASSWORD_DEFAULT);
             $currentTime = date('Y-m-d H:i:s'); // Obtenir l'heure actuelle
@@ -50,7 +51,7 @@ if (isset($_POST['envoyer'])) {
     } else {
         $msg = "Email ou mot de passe incorrect !";
     }
-}
+
 
 ?>
 

@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +31,8 @@
     }
 
     .container {
-      width: 100%;
-      max-width: 800px;
+      width: 7000px;
+      max-width: 2500px;
       margin: 20px auto;
       padding: 20px;
     }
@@ -40,12 +47,15 @@
     }
 
     .product-item img {
-      width: 50%;
+      width: 20%;
       max-height: 300px;
       object-fit: cover;
       border-radius: 4px;
       margin-bottom: 10px;
     }
+
+   
+
 
     .product-item h2 {
       font-size: 24px;
@@ -98,11 +108,21 @@
 
     .product-item {
       display: flex;
+
+      margin-top: 100px;
+      width: 30%;
+      
+      
     }
 
     .product-item img {
-      width: 50%;
+      width: 30%;
       margin-right: 20px;
+
+      
+      max-height: 200px;
+      object-fit: cover;
+      margin-bottom: 50px;
     }
 
     .product-item .product-details {
@@ -124,7 +144,7 @@
     body {
   font-family: Arial, sans-serif;
   line-height: 1.4;
-  background-image: url("img/ach.webp");
+  
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -144,10 +164,16 @@
  
 
 
+
 <body>
   <div class="container">
+
+  
     <?php
-    require_once('functions.php');
+require_once ('functions.php');
+  
+
+
 
     // Vérifier si le formulaire d'achat a été soumis
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -180,7 +206,7 @@
         echo '<p>Votre achat a été effectué avec succès.</p>';
 
 
-        header('Location: delevery.html');
+        header('Location: carte.php');
 
 echo '<p>Votre achat a été effectué avec succès.</p>';
 
@@ -215,6 +241,9 @@ echo '<p>Votre achat a été effectué avec succès.</p>';
           echo '<label>Quantité :</label>';
           echo '<input type="number" name="quantity" min="1" max="' . $product["quantite"] . '" required>';
           echo '<input type="hidden" name="product_id" value="' . $product["id_produit"] . '">';
+
+
+
           echo '<button type="submit">Terminer l\'achat</button>';
           echo '</form>';
 
@@ -267,3 +296,12 @@ echo '<p>Votre achat a été effectué avec succès.</p>';
 </body>
 
 </html>
+
+
+<?php
+require_once ('_nav.php');
+?>
+
+
+
+

@@ -1,17 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function addLink() {
+      var linkContainer = document.getElementById("link-container");
 
-<?php
+      // Créer un nouvel élément lien
+      var newLink = document.createElement("a");
+      newLink.href = "#";
+      newLink.innerText = "Nouveau lien";
 
-require_once('functions.php');
-
-$bdd = connect();
-
-$query = "SELECT picture FROM produit";
-
-$sth = $bdd->prepare($sql);
-
-
-    $picture = $row['picture'];
-    header("Content-type: img/T-shirt la Cene.jpg "); // Remplacez "image/jpeg" par le type de contenu approprié de votre image
-    echo $picture;
-
-?>
+      // Ajouter le nouvel élément lien à la suite du lien précédent
+      linkContainer.appendChild(newLink);
+    }
+  </script>
+</head>
+<body>
+  <div id="link-container">
+    <a href="#" onclick="addLink()">Ajouter un lien</a>
+  </div>
+</body>
+</html>

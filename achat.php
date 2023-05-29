@@ -192,7 +192,7 @@ require_once('functions.php');?>
 <div class="video-bar">
     <!-- Insérez ici le code pour intégrer votre vidéo -->
 </div>
-<div class="product-containere">
+<div class="product-container">
 <div class="product">
     <?php
     // Connexion à la base de données

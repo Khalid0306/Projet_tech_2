@@ -11,8 +11,8 @@
     <?php require_once('_nav.php'); ?>
     <div class="avatar">
         <?php
-        $avatarPath = isset($user['avatar']) ? 'avatars/' . $user['avatar'] : 'default-avatar.png';
-        echo '<img src="' . $avatarPath . '" alt="Avatar">';
+        //$avatarPath = isset($user['avatar']) ? 'avatars/' . $user['avatar'] : 'default-avatar.png';
+       // echo '<img src="' . $avatarPath . '" alt="Avatar">';
         ?>
     </div>
 </body>

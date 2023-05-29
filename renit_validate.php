@@ -21,6 +21,9 @@ if (isset($_POST['email'])) {
         $updateSth->bindValue(':currentTime', $currentTime);
         $updateSth->bindValue(':email', $email);
         $updateSth->execute();
+
+
+        
         
         $sql = "UPDATE users SET valide = 1 WHERE email = :email";
         $sth = $bdd->prepare($sql);
