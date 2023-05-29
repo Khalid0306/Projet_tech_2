@@ -40,7 +40,8 @@ if (isset($_POST['email'])) {
         $sth->bindValue(':email', $email);
         $sth->execute();
         
-        
+        header('Location: login.php');
+         
         exit();
     }
 }

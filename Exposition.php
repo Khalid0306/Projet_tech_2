@@ -279,7 +279,7 @@ if (!isset($_SESSION['user'])) {
             ?>
 
                 <div class="artwork-item">
-                    <?php if ($artwork['premium_only'] == 1 && !$user['premium'] == 1) : ?>
+                <?php if ($artwork['premium_only'] == 1 && !$user['premium'] == 1) : ?>
                         <!-- Si l'œuvre est réservée aux utilisateurs premium et l'utilisateur n'est pas premium -->
                         <img class="artwork-image" src="img/flou.png" alt="Image floutée">
                     <?php else : ?>
