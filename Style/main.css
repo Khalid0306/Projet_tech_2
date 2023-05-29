@@ -7,6 +7,11 @@
     
 }
 
+.logo-couronne {
+    display: inline-block;
+    width: 20px; /* ajustez la taille selon vos besoins */
+    height: 20px;
+  }
 
 
 /* ===== Google Font Import - Poppins ===== */
