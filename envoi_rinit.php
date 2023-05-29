@@ -15,7 +15,7 @@ if (isset($_POST['envoyer'])) {
 
     $bdd = connect();
     $sql = "SELECT * FROM users WHERE `email` = :email;";
-
+    ///$sth->bindValue(':email', $email);
     $sth = $bdd->prepare($sql);
 
     //if (!$sth) {
@@ -34,19 +34,14 @@ if (isset($_POST['envoyer'])) {
 
         
             $msg = "votre demande a bien ete transmise !";
+
+            
     }
         else {
 
-            $hashedPassword = password_hash($new_passwordd, PASSWORD_DEFAULT);
-            $currentTime = date('Y-m-d H:i:s'); // Obtenir l'heure actuelle
+            $msg = " verifier les donnés saisie !";  
 
-            $updateSql = "UPDATE users SET password = :password, updated_at = :currentTime WHERE email = :email";
-            $updateSth = $bdd->prepare($updateSql);
-            $updateSth->bindValue(':password', $hashedPassword);
-            $updateSth->bindValue(':currentTime', $currentTime);
-            $updateSth->bindValue(':email', $email);
-            $updateSth->execute();
-            header('Location: login.php');
+           
         }
     } else {
         $msg = "Email ou mot de passe incorrect !";

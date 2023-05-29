@@ -4,12 +4,20 @@ require_once('functions.php');
 if (isset($_POST["send"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
+
+
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+
     
     $bdd = connect();
     $sql = "SELECT * FROM users WHERE email = :email;";
     
     $sth = $bdd->prepare($sql);
     $sth->bindValue(':email', $email);
+   
+
 
     if (!$sth) {
         die("Error during prepare: " . $bdd->errorInfo()[2]);
@@ -19,7 +27,7 @@ if (isset($_POST["send"])) {
     
     $user = $sth->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && password_verify(  $_POST["password"] , $user['password'])) {
         // Utilisateur et mot de passe corrects, redirigez vers la page d'inscription
         header('Location: page_d_acceuil.php');
         exit(); // Assurez-vous de terminer le script après une redirection
