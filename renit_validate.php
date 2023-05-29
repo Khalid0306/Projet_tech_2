@@ -5,7 +5,7 @@ date_default_timezone_set('Europe/Paris');
 
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
-    $new_passwordd = $_POST['password'];
+    $new_password = $_POST['password'];
 
     if (isset($_POST['accept'])) {
         // Mettre à jour le champ 'validated' de l'utilisateur à 1 (accepté)
